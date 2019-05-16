@@ -7,6 +7,7 @@ export const LOGIN_FAILURE = "LOGIN_FAILURE";
 
 
 export const loginUser = (creds) => (dispatch) =>{
+
     dispatch({type: LOGIN_START})
     return axios
     .post('http://localhost:5000/api/login', creds)
@@ -27,11 +28,28 @@ export const getData = () => (dispatch) =>{
     return axiosWithAuth()
     .get('http://localhost:5000/api/friends')
     .then(res => {
-        console.log("response data", res)
+       
         dispatch({type: GET_DATA_SUCCESS, payload: res.data})
     })
     .catch(err => console.log(err))
 }
 
+export const ADD_FRIEND_START = "ADD_FRIEND_START";
+export const ADD_FRIEND_SUCCESS = "ADD_FRIEND_SUCCESS";
+export const ADD_FRIEND_FAILURE = "ADD_FRIEND_FAILURE";
+
+export const addFriend = (newFriend) => (dispatch) =>{
+   
+    console.log("new_friend",newFriend)
+    dispatch({type: ADD_FRIEND_START})
+    axiosWithAuth()
+    .post('http://localhost:5000/api/friends', newFriend)
+    .then(res => {
+        console.log("response data from action", res)
+        dispatch({type: ADD_FRIEND_SUCCESS, payload: res.data})
+   
+    })
+    .catch(err => console.log(err))
+}
 
 

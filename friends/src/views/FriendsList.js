@@ -7,15 +7,13 @@ import { getData } from '../actions'
 class FriendsList extends React.Component {
   
      
-
-
     componentDidMount(){
         this.props.getData()
     }
     render() { 
         return ( 
             <div>
-               {this.props.friends.map(friend => <p>{friend.name}</p>)}
+               {this.props.friends.map((friend, index) => <p key={index}>{friend.name} {friend.id}</p>)}
             </div>
          );
     }
