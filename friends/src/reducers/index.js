@@ -1,10 +1,22 @@
-import {LOGIN_START, LOGIN_SUCCESS, LOGIN_FAILURE, GET_DATA_START, GET_DATA_SUCCESS, GET_DATA_FAILURE} from '../actions'
+import {
+  LOGIN_START, 
+  LOGIN_SUCCESS, 
+  // LOGIN_FAILURE, 
+  GET_DATA_START, 
+  GET_DATA_SUCCESS, 
+  // GET_DATA_FAILURE,
+  ADD_FRIEND_START,
+  ADD_FRIEND_SUCCESS,
+  // ADD_FRIEND_FAILURE,
+
+
+} from '../actions'
+
 
 const initialState = {
     deletingFriend: false,
     fetchingFriends: false,
-    friends: [{id: 1, name: 'loading...', age: 24, email: 'joe@lambdaschool.com',
-      }],
+    friends: [],
     loggingIn: false,
     savingFriends: false,
     updatingFriend: false,
@@ -29,8 +41,19 @@ export const testReducer = (state = initialState, action) => {
     return{...state,
     friends: action.payload
     }
-  
- 
+    //failure needed for get data
+    case ADD_FRIEND_START:
+      return {
+        ...state,
+      loggingIn: true
+      }
+    case ADD_FRIEND_SUCCESS:
+      return {...state,
+        friends: action.payload
+
+      }
+    
+    
     
     default:
       return state;

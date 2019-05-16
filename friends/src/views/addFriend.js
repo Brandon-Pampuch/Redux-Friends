@@ -1,5 +1,7 @@
 import React from 'react';
 import styled from 'styled-components'
+import { connect } from 'react-redux'
+import { addFriend } from '../actions'
 
 const FormWrapper = styled.div`
 display:flex;
@@ -9,7 +11,7 @@ padding: 20px;
 width: 300px;
 margin 100px auto;
 `
-const LoginInput = styled.input`
+const AddInput = styled.input`
 border: none;
 border-bottom: 1px solid black;
 `
@@ -20,23 +22,57 @@ font-size: 16px;
 border-radius: 5px;
 `
 
+
+
+
 class AddFriend extends React.Component {
-    state = {  }
+    state = { 
+        name: "",
+        age: "",
+        email: "",
+     }
+
+
+
+    textChangeHandler = (event) =>{
+        const newText = event.target.value
+        this.setState({
+          ...this.state,
+          [event.target.name]:newText
+          
+        })
+      } 
+    addFriend = (event) =>{
+      event.preventDefault();
+      console.log("addfriend in addfriend", this.state)
+      
+      this.props.addFriend(this.state)
+
+    }
+
+
     render() { 
         return ( 
             <FormWrapper>
-            <h1>Login  Friends</h1>
-            <form onSubmit={this.loginUser}>
-              <h2>user name</h2>
-              <LoginInput onChange={this.textChangeHandler} name="username" type="text" value={this.state.credentials.username} />
-              <h2>password</h2>
-              <LoginInput onChange={this.textChangeHandler} name="password" type="text" value={this.state.credentials.password} />
-              <Button>Login</Button> 
+            <h1>Add new Friend</h1>
+            <form onSubmit={this.addFriend}>
+              <h2>name</h2>
+              <AddInput onChange={this.textChangeHandler} name="name" type="text" value={this.state.name} />
+              <h2>age</h2>
+              <AddInput onChange={this.textChangeHandler} name="age" type="text" value={this.state.age} />
+              <h2>email</h2>
+              <AddInput onChange={this.textChangeHandler} name="email" type="text" value={this.state.email} />
+              <Button>Add User</Button> 
               {/* loader in button with isloggin in booliearn terinary */}
             </form>
           </FormWrapper>
          );
     }
 }
- 
-export default AddFriend;
+
+const setStateToProps = state =>({
+
+})
+
+export default connect(setStateToProps,{addFriend})(AddFriend)
+
